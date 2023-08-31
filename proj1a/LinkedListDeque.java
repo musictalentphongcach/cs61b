@@ -43,7 +43,7 @@ public class LinkedListDeque<T> {
     }
 
 
-    public int getSize() { //return the size of the dq
+    public int size() { //return the size of the dq
         return size;
     }
 
