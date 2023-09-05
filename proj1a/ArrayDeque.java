@@ -73,8 +73,9 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         items[nextLast] = item; // Add the item to the nextLast position
         getLast(); // Update nextLast index
-        size++; // Increase the size
         checkUsage(); // Check if resizing is needed
+        size++; // Increase the size
+
     }
 
     // Check if the deque is empty
@@ -107,8 +108,9 @@ public class ArrayDeque<T> {
         T returnItem = items[plusOne(nextFirst)]; // Get the item to be removed
         items[plusOne(nextFirst)] = null; // Clear the item
         nextFirst = plusOne(nextFirst); // Update nextFirst index
-        size--; // Decrease the size
         checkUsage(); // Check if resizing is needed
+        size--; // Decrease the size
+
         return returnItem; // Return the removed item
     }
 
@@ -117,8 +119,9 @@ public class ArrayDeque<T> {
         T returnItem = items[minusOne(nextLast)]; // Get the item to be removed
         items[minusOne(nextLast)] = null; // Clear the item
         nextLast = minusOne(nextLast); // Update nextLast index
-        size--; // Decrease the size
         checkUsage(); // Check if resizing is needed
+        size--; // Decrease the size
+
         return returnItem; // Return the removed item
     }
 
