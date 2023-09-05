@@ -105,6 +105,9 @@ public class ArrayDeque<T> {
 
     // Remove the first item from the deque
     public T removeFirst() {
+        if(isEmpty()){
+            return null;
+        }
         T returnItem = items[plusOne(nextFirst)]; // Get the item to be removed
         items[plusOne(nextFirst)] = null; // Clear the item
         nextFirst = plusOne(nextFirst); // Update nextFirst index
@@ -116,6 +119,9 @@ public class ArrayDeque<T> {
 
     // Remove the last item from the deque
     public T removeLast() {
+        if(isEmpty()){
+            return null;
+        }
         T returnItem = items[minusOne(nextLast)]; // Get the item to be removed
         items[minusOne(nextLast)] = null; // Clear the item
         nextLast = minusOne(nextLast); // Update nextLast index
