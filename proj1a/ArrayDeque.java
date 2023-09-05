@@ -66,14 +66,14 @@ public class ArrayDeque<T> {
         items[nextFirst] = item; // Add the item to the nextFirst position
         getFront(); // Update nextFirst index
         size++; // Increase the size
-        checkUsage(); // Check if resizing is needed
+        checkSize(); // Check if resizing is needed
     }
 
     // Add an item to the end of the deque
     public void addLast(T item) {
         items[nextLast] = item; // Add the item to the nextLast position
         getLast(); // Update nextLast index
-        checkUsage(); // Check if resizing is needed
+        checkSize(); // Check if resizing is needed
         size++; // Increase the size
 
     }
