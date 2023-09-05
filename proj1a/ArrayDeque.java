@@ -108,9 +108,9 @@ public class ArrayDeque<T> {
         T returnItem = items[plusOne(nextFirst)]; // Get the item to be removed
         items[plusOne(nextFirst)] = null; // Clear the item
         nextFirst = plusOne(nextFirst); // Update nextFirst index
-        checkUsage(); // Check if resizing is needed
-        size--; // Decrease the size
 
+        size--; // Decrease the size
+        checkUsage(); // see if resizing is rneeded
         return returnItem; // Return the removed item
     }
 
