@@ -53,7 +53,7 @@ public class ArrayDeque<T> {
     }
 
     // Check if resizing is needed based on usage
-    private void checkUsage() {
+    private void checkSize() {
         if (isSparse()) {
             reSmall(); // Shrink the array if usage is low
         } else if (isFull()) {
@@ -110,7 +110,7 @@ public class ArrayDeque<T> {
         nextFirst = plusOne(nextFirst); // Update nextFirst index
 
         size--; // Decrease the size
-        checkUsage(); // see if resizing is rneeded
+        checkSize(); // see if resizing is rneeded
         return returnItem; // Return the removed item
     }
 
@@ -119,7 +119,7 @@ public class ArrayDeque<T> {
         T returnItem = items[minusOne(nextLast)]; // Get the item to be removed
         items[minusOne(nextLast)] = null; // Clear the item
         nextLast = minusOne(nextLast); // Update nextLast index
-        checkUsage(); // Check if resizing is needed
+        checkSize(); // Check if resizing is needed
         size--; // Decrease the size
 
         return returnItem; // Return the removed item
