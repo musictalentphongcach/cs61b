@@ -27,14 +27,13 @@ public class ArrayDeque<T> {
 
     // Calculate the next index in circular fashion
     private int plusOne(int index) {
-
-        return (index + 1);
+        return (index + 1) % items.length;
     }
 
     // Calculate the previous index in circular fashion
     private int minusOne(int index) {
 
-        return (index + items.length - 1);
+        return (index + items.length - 1) % items.length;
     }
 
     // Check if the deque is full
