@@ -16,6 +16,7 @@ public class ArrayDeque<T> {
 
     // Calculate the index for the previous position in the array (circular)
     private void getFront() {
+
         nextFirst = minusOne(nextFirst);
     }
 
@@ -26,12 +27,14 @@ public class ArrayDeque<T> {
 
     // Calculate the next index in circular fashion
     private int plusOne(int index) {
-        return (index + 1) % items.length;
+
+        return (index + 1);
     }
 
     // Calculate the previous index in circular fashion
     private int minusOne(int index) {
-        return (index + items.length - 1) % items.length;
+
+        return (index + items.length - 1);
     }
 
     // Check if the deque is full
@@ -78,10 +81,7 @@ public class ArrayDeque<T> {
 
     }
 
-    // Check if the deque is empty
-    public boolean isEmpty() {
-        return size == 0;
-    }
+
 
     // Get the current size of the deque
     public int size() {
@@ -95,7 +95,7 @@ public class ArrayDeque<T> {
 
     // Resize the array to a smaller capacity
     private void reSmall() {
-        resize(items.length / reFact);
+        resize(items.length / reFact); // divide the reFactor to get the smaller array size
     }
 
     // Resize the array to a larger capacity
@@ -128,6 +128,11 @@ public class ArrayDeque<T> {
         size--; // Decrease the size
         checkSize(); // Check if resizing is needed
         return returnItem; // Return the removed item
+    }
+
+    //check if the array is empty set the head = tail.
+    public boolean isEmpty(){
+        return nextFirst == nextLast;
     }
 
     // Print the contents of the deque
