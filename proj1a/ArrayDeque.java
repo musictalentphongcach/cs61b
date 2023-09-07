@@ -15,7 +15,7 @@ public class ArrayDeque<T> {
         if (isFull()) { // Check if the array is full
             resize((int) (capacity * 2)); // If full, resize the array to increase capacity
         }
-        left = (left - 1 + capacity) % capacity; // Calculate the new front index using circula method
+        left = (left - 1 + capacity) % capacity; // Calculate the new front index
         items[left] = item; // Add the item at the new front index
     }
 
