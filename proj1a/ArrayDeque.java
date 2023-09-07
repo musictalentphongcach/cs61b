@@ -12,7 +12,7 @@ public class ArrayDeque<T> {
 
     // Adds an item to the front of the deque
     public void addFirst(T item) {
-        if (isFull()) { // Check if the array is full
+        if (isFull()) {
             resize((int) (capacity * 2)); // If full, resize the array to increase capacity
         }
         left = (left - 1 + capacity) % capacity; // Calculate the new front index
@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
 
     // Adds an item to the back of the deque
     public void addLast(T item) {
-        if (isFull()) { // Check if the deque is full
+        if (isFull()) {
             resize((int) (capacity * 2)); // If full, resize the array to increase capacity
         }
         items[right] = item; // Add the item at the current back index
@@ -53,12 +53,12 @@ public class ArrayDeque<T> {
 
     // Removes and returns the item at the front of the deque
     public T removeFirst() {
-        if (isEmpty()) { // Check if the deque is empty
+        if (isEmpty()) {
             return null; // If empty, return null
         }
         T res = items[left]; // Get the item at the front
         left = (left + 1) % capacity; // Calculate the new front index in a circular manner
-        if (isLowUsageRate()) { // Check if resizing is needed based on usage
+        if (isLowUsageRate()) {
             resize((int) (capacity * 0.5)); // Resize the array to reduce capacity
         }
         return res; // Return the removed item
@@ -66,12 +66,12 @@ public class ArrayDeque<T> {
 
     // Removes and returns the item at the back of the deque
     public T removeLast() {
-        if (isEmpty()) { // Check if the deque is empty
+        if (isEmpty()) {
             return null; // If empty, return null
         }
         right = (right - 1 + capacity) % capacity; // Calculate the new back index in a circular manner
         T res = items[right]; // Get the item at the back
-        if (isLowUsageRate()) { // Check if resizing is needed based on usage
+        if (isLowUsageRate()) {
             resize((int) (capacity * 0.5)); // Resize the array to reduce capacity
         }
         return res; // Return the removed item
@@ -79,8 +79,8 @@ public class ArrayDeque<T> {
 
     // Gets the item at the given index
     public T get(int index) {
-        if (index < 0 || index >= size() || isEmpty()) { // Check for invalid index or empty deque
-            return null; // If invalid, return null
+        if (index < 0 || index >= size() || isEmpty()) {
+            return null; // If invalid index or empty deque, return null
         }
         int itemIndex = (left + index) % capacity; // Calculate the index for the requested item
         return items[itemIndex]; // Return the item at the calculated index
@@ -100,7 +100,7 @@ public class ArrayDeque<T> {
     private void resize(int newSize) {
         T[] newArray = (T[]) new Object[newSize]; // Create a new array with the specified capacity
         int size = size(); // Get the current size of the deque
-        for (int i = 0; i < size; i++) { // traverse thru the array
+        for (int i = 0; i < size; i++) {
             int index = (left + i) % capacity; // Calculate the index for the current item
             newArray[i] = items[index]; // Copy items to the new array
         }
