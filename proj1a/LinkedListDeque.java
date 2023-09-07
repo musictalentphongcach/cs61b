@@ -1,23 +1,24 @@
 public class LinkedListDeque<T> {
     private Node sentinel; // sentinel node for dummy
     private int size; // size counter
-
     private class Node { // invariants
+
         private Node prev; // dummy node for last
         private T item; // initialize Generic type T item
         private Node next; // dummy node for first
-
-        // create one last dummy node and one first dummy node referencing the prev and next
+        // create one last bummy node and one first dummy node referencing the prev and next
         public Node(LinkedListDeque<T>.Node prev, T item, LinkedListDeque<T>.Node next) {
             this.prev = prev; // store the last reference node
-            this.item = item; // store the element of the node
+            this.item = item; //store the element of the node
             this.next = next; // store the first reference node
         }
     }
 
-    public LinkedListDeque() { // empty LL
+
+
+    public LinkedListDeque() { //emty LL
         sentinel = new Node(null, (T) new Object(), null);
-        sentinel.prev = sentinel; // set the first point to the sent
+        sentinel.prev = sentinel;// set the first point to the sent
         sentinel.next = sentinel; // set the last point to the sent
         size = 0;
     }
@@ -30,18 +31,22 @@ public class LinkedListDeque<T> {
         size++;
     }
 
-    public void addLast(T item) { // add an item to the last of the list
+
+    public void addLast(T item) { // add an item to last of list
         Node newNode = new Node(sentinel.prev, item, sentinel);
         sentinel.prev.next = newNode;
         sentinel.prev = newNode;
         size++;
     }
 
-    public boolean isEmpty() { // true/false for empty
+
+    public boolean isEmpty() { // true false for empty
         return size == 0;
     }
 
-    public int getSize() { // return the size of the deque
+
+    public int getSize() { //return the size of the dq
+
         return size;
     }
 
@@ -60,8 +65,8 @@ public class LinkedListDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T remove = sentinel.next.item; // traverse through the dummy node first
-        sentinel.next = sentinel.next.next; // set the node pointing to the node after the removed node
+        T remove = sentinel.next.item; // traverse thru the dummy node first
+        sentinel.next = sentinel.next.next; // set the node pointing to the node after removed node
         sentinel.next.prev = sentinel; // set the sent node to be the head
         size--;
         return remove;
@@ -87,7 +92,7 @@ public class LinkedListDeque<T> {
      * and so forth. If no such item exists, returns null. Must not alter the deque!
      */
     public T get(int index) {
-        if (size <= index) {
+        if (size < index) {
             return null;
         }
         Node p = sentinel.next;
@@ -100,7 +105,7 @@ public class LinkedListDeque<T> {
 
     /** Same as get, but uses recursion. */
     public T getRecursive(int index) {
-        if (size <= index) {
+        if (size < index) {
             return null;
         }
         return getRecursive(sentinel.next, index);
@@ -112,4 +117,5 @@ public class LinkedListDeque<T> {
         }
         return getRecursive(node.next, i - 1);
     }
+
 }
