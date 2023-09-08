@@ -1,9 +1,3 @@
-/**
- * Deque (usually pronounced like “deck”) is an irregular acronym of
- * double-ended queue. Double-ended queues are sequence containers with dynamic
- * sizes that can be expanded or contracted on both ends (either its front or
- * its back).
- */
 public class LinkedListDeque<T> {
     private class Node {
         private Node prev;
@@ -42,7 +36,6 @@ public class LinkedListDeque<T> {
         sentinel.prev = newNode;
         size++;
     }
-
     /** Returns true if deque is empty, false otherwise. */
     public boolean isEmpty() {
         return size == 0;
