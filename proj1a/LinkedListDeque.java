@@ -36,6 +36,7 @@ public class LinkedListDeque<T> {
         sentinel.prev = newNode;
         size++;
     }
+
     /** Returns true if deque is empty, false otherwise. */
     public boolean isEmpty() {
         return size == 0;
@@ -92,7 +93,7 @@ public class LinkedListDeque<T> {
      * and so forth. If no such item exists, returns null. Must not alter the deque!
      */
     public T get(int index) {
-        if (size < index) {
+        if (size <= index) {
             return null;
         }
         Node p = sentinel.next;
@@ -105,7 +106,7 @@ public class LinkedListDeque<T> {
 
     /** Same as get, but uses recursion. */
     public T getRecursive(int index) {
-        if (size < index) {
+        if (size <= index) {
             return null;
         }
         return getRecursive(sentinel.next, index);
@@ -117,5 +118,4 @@ public class LinkedListDeque<T> {
         }
         return getRecursive(node.next, i - 1);
     }
-
 }
