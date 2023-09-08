@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     private class Node {
-        private Node prev;
-        private T item;
-        private Node next;
+    private Node prev;
+    private T item;
+    private Node next;
 
         public Node(LinkedListDeque<T>.Node prev, T item, LinkedListDeque<T>.Node next) {
             this.prev = prev;
@@ -36,7 +36,6 @@ public class LinkedListDeque<T> {
         sentinel.prev = newNode;
         size++;
     }
-
     /** Returns true if deque is empty, false otherwise. */
     public boolean isEmpty() {
         return size == 0;
@@ -66,13 +65,12 @@ public class LinkedListDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T res = sentinel.next.item;
-        sentinel.next = sentinel.next.next;
-        sentinel.next.prev = sentinel;
-        size--;
-        return res;
+T res = sentinel.next.item;
+sentinel.next = sentinel.next.next;
+sentinel.next.prev = sentinel;
+size--;
+return res;
     }
-
     /**
      * Removes and returns the item at the back of the deque. If no such item
      * exists, returns null.
