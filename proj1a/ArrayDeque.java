@@ -1,112 +1,151 @@
+/**
+ * Deque implemented by array.
+ */
 public class ArrayDeque<T> {
-    private T[] items; // Array to store deque items
-    private int left; // Index for the front of the deque
-    private int right; // Index for the back of the deque
-    private int capacity = 8; // Initial capacity of the array
+
+    private T[] items;
+    private int left;
+    private int right;
+    private int capacity = 8;
 
     public ArrayDeque() {
-        items = (T[]) new Object[capacity]; // Initialize array with initial capacity
-        left = 0; // Index for the front of the deque
-        right = 0; // Index for the back of the deque
+        items = (T[]) new Object[capacity];
+        left = right = 0;
     }
 
-    // Adds an item to the front of the deque
+    /** Adds an item of type T to the front of the deque. */
     public void addFirst(T item) {
         if (isFull()) {
-            resize((int) (capacity * 2)); // If full, resize the array to increase capacity
+            resize((int) (capacity * 1.5));
         }
-        left = (left - 1 + capacity) % capacity; // Calculate the new front index
-        items[left] = item; // Add the item at the new front index
+        left = (left - 1 + capacity) % capacity;
+        items[left] = item;
     }
 
-    // Adds an item to the back of the deque
+    /** Adds an item of type T to the back of the deque. */
     public void addLast(T item) {
         if (isFull()) {
-            resize((int) (capacity * 2)); // If full, resize the array to increase capacity
+            resize((int) (capacity * 1.5));
         }
-        items[right] = item; // Add the item at the current back index
-        right = (right + 1) % capacity; // Calculate the new back index in a circular method
+        items[right] = item;
+        right = (right + 1 + capacity) % capacity;
     }
 
-    // Returns true if deque is empty, false otherwise
+    /** Returns true if deque is empty, false otherwise. */
     public boolean isEmpty() {
-        return left == right; // If the front and back indices are the same, the deque is empty
+        return left == right;
     }
 
-    // Returns the number of items in the deque
+    /** Returns the number of items in the deque. */
     public int size() {
-        return (right - left + capacity) % capacity; // Calculate the size of the deque in a circular manner
+        return (right - left + capacity) % capacity;
     }
 
-    // Prints the items in the deque from first to last, separated by a space
+    /** Prints the items in the deque from first to last, separated by a space. */
     public void printDeque() {
-        int size = size(); // Get the size of the deque
-        for (int i = 0; i < size; i++) {
-            int index = (left + i) % capacity; // Calculate the index for the current item
-            if (i == size - 1) {
-                System.out.println(items[index]); // Print the last item with a newline
-            } else {
-                System.out.print(items[index] + " "); // Print the item with a space separator
+        if (left < right) {
+            for (int i = left; i < right; i++) {
+                if (i == right - 1) {
+                    System.out.println(items[i]);
+                    break;
+                }
+                System.out.print(items[i] + " ");
+            }
+        } else if (left > right) {
+            for (int i = left; i < capacity; i++) {
+                System.out.print(items[i] + " ");
+            }
+            for (int i = 0; i < right; i++) {
+                if (i == right - 1) {
+                    System.out.println(items[i]);
+                    break;
+                }
+                System.out.print(items[i] + " ");
             }
         }
     }
 
-    // Removes and returns the item at the front of the deque
+    /**
+     * Removes and returns the item at the front of the deque. If no such item
+     * exists, returns null.
+     */
     public T removeFirst() {
         if (isEmpty()) {
-            return null; // If empty, return null
+            return null;
         }
-        T res = items[left]; // Get the item at the front
-        left = (left + 1) % capacity; // Calculate the new front index in a circular manner
+        T res = items[left];
+        left = (left + 1) % capacity;
         if (isLowUsageRate()) {
-            resize((int) (capacity * 0.5)); // Resize the array to reduce capacity
+            resize((int) (capacity * 0.5));
         }
-        return res; // Return the removed item
+        return res;
     }
 
-    // Removes and returns the item at the back of the deque
+    /**
+     * Removes and returns the item at the back of the deque. If no such item
+     * exists, returns null.
+     */
     public T removeLast() {
         if (isEmpty()) {
-            return null; // If empty, return null
+            return null;
         }
-        right = (right - 1 + capacity) % capacity; // Calculate the new back index in a circular manner
-        T res = items[right]; // Get the item at the back
+        right = (right - 1 + capacity) % capacity;
+        T res = items[right];
         if (isLowUsageRate()) {
-            resize((int) (capacity * 0.5)); // Resize the array to reduce capacity
+            resize((int) (capacity * 0.5));
         }
-        return res; // Return the removed item
+        return res;
     }
 
-    // Gets the item at the given index
+    /**
+     * Gets the item at the given index, where 0 is the front, 1 is the next item,
+     * and so forth. If no such item exists, returns null. Must not alter the deque!
+     */
     public T get(int index) {
         if (index < 0 || index >= size() || isEmpty()) {
-            return null; // If invalid index or empty deque, return null
+            return null;
         }
-        int itemIndex = (left + index) % capacity; // Calculate the index for the requested item
-        return items[itemIndex]; // Return the item at the calculated index
+        if (left < right) {
+            return items[index + left];
+        } else if (left > right) {
+            if (index + left < capacity) {
+                return items[index + left];
+            } else {
+                return items[(index + left) % capacity];
+            }
+        }
+        return null;
     }
 
-    // Checks if the deque is full
     private boolean isFull() {
-        return size() == capacity - 1; // Check if the size is equal to one less than capacity
+        return size() == capacity - 1;
     }
 
-    // Checks if resizing is needed based on usage
     private boolean isLowUsageRate() {
-        return capacity >= 16 && size() / (double) capacity < 0.25; // Check if the usage rate is low
+        return capacity >= 16 && size() / (double) capacity < 0.25;
     }
 
-    // Resizes the array to a new capacity
     private void resize(int newSize) {
-        T[] newArray = (T[]) new Object[newSize]; // Create a new array with the specified capacity
-        int size = size(); // Get the current size of the deque
-        for (int i = 0; i < size; i++) {
-            int index = (left + i) % capacity; // Calculate the index for the current item
-            newArray[i] = items[index]; // Copy items to the new array
+        T[] newArray = (T[]) new Object[newSize];
+
+        int size = size();
+        if (left < right) {
+            for (int i = left, j = 0; i < right && j < size; i++, j++) {
+                newArray[j] = items[i];
+            }
+        } else if (left > right) {
+            int j = 0;
+            for (int i = left; j < capacity - left; i++, j++) {
+                newArray[j] = items[i];
+            }
+            for (int i = 0; j < size; i++, j++) {
+                newArray[j] = items[i];
+            }
         }
-        left = 0; // Reset the front index
-        right = size; // Set the back index to the new size
-        items = newArray; // Update the deque to use the new array
-        capacity = newSize; // Update the capacity
+        left = 0;
+        right = size;
+        items = newArray;
+        capacity = newSize;
     }
+
 }
